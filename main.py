@@ -74,13 +74,12 @@ driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[4]/div/d
 
 time.sleep(2)
 
+wkns_bereits_drin = []
+
 ## ab hier Schleife über Liste und Liste mit dictionaries befuellen
 for wert in wkns:
     if wert == "":
         continue
-    for einzelaktie in liste:
-        if wert in einzelaktie:
-            continue
 
     search_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]')))
 
@@ -119,7 +118,12 @@ for wert in wkns:
         new_html = driver.page_source
         new_soup = BeautifulSoup(new_html, "html.parser")
         try:
-            daten.append(new_soup.select(".accordion__parameter")[0].findAll("span")[0].text.strip())
+            wkn = new_soup.select(".accordion__parameter")[0].findAll("span")[0].text.strip()
+            if wkn in wkns_bereits_drin:
+                driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
+                continue
+            wkns_bereits_drin.append(wkn)
+            daten.append(wkn)
             daten.append(soup.findAll("th")[i].text.strip())
             daten.append(new_soup.select(".accordion__parameter")[0].findAll("span")[1].text.strip())
             daten.append(new_soup.select_one(".industry").text.strip())
@@ -136,13 +140,17 @@ for wert in wkns:
 
         try:
             for row in soup.findAll("tr")[2:]:
-                daten.append(row.select("td")[i].text.strip().replace("\u202f%", ""))
+                zahl = row.select("td")[i].text.strip().replace("\u202f%", "")
+                if zahl not in ["neg.", "access denied", "instrument n/a", "-"]:
+                    daten.append(zahl)
+                else:
+                    daten.append("")
         except:
             print("Fehler in Schleife über die einzelnen Reihen bei " + wert + " in Position " + str(i))
             continue
 
         liste.append(daten)
-        columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Stock3Score", "Momentum_&_Vola", "Kursperform 6 M", "Kursperform_1_J", "Delta_52_Wochen_Hoch", "Vola_1_J",
+        columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Stock3Score", "Momentum_&_Vola", "Kursperform_6_M", "Kursperform_1_J", "Delta_52_Wochen_Hoch", "Vola_1_J",
                    "Bewertung", "KUV", "Free_Cash_Flow", "PEG_Ratio", "KGV_(2023)", "KGV_(2024)", "Kursziel", "Wachstum", "Umsatzwachstum_ueber_5_J", "EPS-Wachstum_ueber_5_J",
                    "Umsatzwachstum_(2023)", "Umsatzwachstum_(2024)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(2023)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(2024)",
                    "Qualitaet_und_Verschuldung", "Eigenkapitalrendite", "Eigenkapitalquote", "EBIT-Marge","Liquiditaet_dritten_Grades", "Liquiditaet_zweiten_Grades", "Verhaeltnis_aus_Schulden_zum_EK",
@@ -153,6 +161,7 @@ for wert in wkns:
     time.sleep(0.25)
 
 df = pandas.DataFrame(liste, columns = columns)
+df["WKn"] = df["WKN"].to_string()
 folder = os.path.dirname(__file__)
 filename = "stock3_" + datetime.datetime.strftime(datetime.datetime.now(), "%d.%m.%y_%H%M") + ".csv"
 df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
