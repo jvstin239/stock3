@@ -114,7 +114,9 @@ for wert in wkns:
         # print(soup.findAll("th"))
         daten = []
         driver.find_elements(By.CLASS_NAME, "button__label")[i+3].click()
-        time.sleep(0.2)
+        # button_label = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3]))
+        # button_label.click()
+        time.sleep(0.5)
         new_html = driver.page_source
         new_soup = BeautifulSoup(new_html, "html.parser")
         try:
@@ -128,10 +130,22 @@ for wert in wkns:
             daten.append(new_soup.select(".accordion__parameter")[0].findAll("span")[1].text.strip())
             daten.append(new_soup.select_one(".industry").text.strip())
             daten.append(new_soup.select(".accordion__parameter")[6].select_one(".button").text.strip())
+            # sell Kurs
+            daten.append(new_soup.select(".box-item__price")[0].text.strip())
+            # buy Kurs
+            daten.append(new_soup.select(".box-item__price")[1].text.strip())
+            # Land
+            daten.append(new_soup.select_one(".country-items").text.strip())
+            # anzahl Aktien
+            daten.append(new_soup.select(".accordion__parameter-value")[8].text.strip())
+            # Marktkapitalisierung
+            daten.append(new_soup.select(".accordion__parameter-value")[9].text.strip())
         except:
             print("Element hat kein Attribut text bei " + wert + " in peergroup Position " + str(i))
+            driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
             continue
         # objekt = Aktie(soup.findAll("th")[i].text.strip(), wkn, isin, branche, sektor)
+
         driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
         # print(soup.findAll("tr")[1].select_one("td").text)
 
@@ -150,7 +164,8 @@ for wert in wkns:
             continue
 
         liste.append(daten)
-        columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Stock3Score", "Momentum_&_Vola", "Kursperform_6_M", "Kursperform_1_J", "Delta_52_Wochen_Hoch", "Vola_1_J",
+        columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", "Land", "Anzahl_Aktien", "Marktkapitalisierung", "Stock3Score", "Momentum_&_Vola",
+                   "Kursperform_6_M", "Kursperform_1_J", "Delta_52_Wochen_Hoch", "Vola_1_J",
                    "Bewertung", "KUV", "Free_Cash_Flow", "PEG_Ratio", "KGV_(2023)", "KGV_(2024)", "Kursziel", "Wachstum", "Umsatzwachstum_ueber_5_J", "EPS-Wachstum_ueber_5_J",
                    "Umsatzwachstum_(2023)", "Umsatzwachstum_(2024)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(2023)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(2024)",
                    "Qualitaet_und_Verschuldung", "Eigenkapitalrendite", "Eigenkapitalquote", "EBIT-Marge","Liquiditaet_dritten_Grades", "Liquiditaet_zweiten_Grades", "Verhaeltnis_aus_Schulden_zum_EK",
@@ -161,7 +176,12 @@ for wert in wkns:
     time.sleep(0.25)
 
 df = pandas.DataFrame(liste, columns = columns)
-# folder = os.path.dirname(__file__)
+folder = os.path.dirname(__file__)
 filename = "stock3_" + datetime.datetime.strftime(datetime.datetime.now(), "%d.%m.%y_%H%M") + ".csv"
+<<<<<<< HEAD
 # df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
 df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
+=======
+df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
+# df.to_csv("/Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
+>>>>>>> 7606d70c49c21fff3f8d12c6ff669d6f2dee3178
