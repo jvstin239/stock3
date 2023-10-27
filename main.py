@@ -94,6 +94,8 @@ for wert in wkns:
 
         actions.send_keys(wert)
 
+        actions.perform()
+
         time.sleep(0.1)
 
         actions.send_keys(Keys.ENTER)
@@ -154,6 +156,7 @@ for wert in wkns:
 
             # Schleife über die Reihen in der Übersicht
             stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
+            print("Stock 3 score " + wkn + ": I" + str(stock3_score) + "I")
             if stock3_score == "-":
                 daten.append("")
             else:
