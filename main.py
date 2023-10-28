@@ -36,8 +36,6 @@ def getdata():
 
 wkns = getdata()
 
-print(wkns)
-
 liste = []
 
 url = "https://account.stock3.com"
@@ -77,6 +75,8 @@ driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[4]/div/d
 time.sleep(2)
 
 wkns_bereits_drin = []
+
+wkn_vorher = ""
 
 ## ab hier Schleife über Liste und Liste mit dictionaries befuellen
 for wert in wkns:
@@ -156,7 +156,7 @@ for wert in wkns:
 
             # Schleife über die Reihen in der Übersicht
             stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
-            print("Stock 3 score " + wkn + ": I" + str(stock3_score) + "I")
+            # print("Stock 3 score " + wkn + ": I" + str(stock3_score) + "I")
             if stock3_score == "-":
                 daten.append("")
             else:
