@@ -128,7 +128,7 @@ for wert in wkns:
                 wkn = new_soup.select(".accordion__parameter")[0].findAll("span")[0].text.strip()
                 if wkn in wkns_bereits_drin:
                     driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
-                    continue
+                    break
                 wkns_bereits_drin.append(wkn)
                 daten.append(wkn)
                 daten.append(soup.findAll("th")[i].text.strip())
