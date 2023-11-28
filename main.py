@@ -165,7 +165,7 @@ for wert in wkns:
             stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
             # print("Stock 3 score " + wkn + ": I" + str(stock3_score) + "I")
             if stock3_score == "-":
-                daten.append("")
+                break
             else:
                 daten.append(soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", ""))
 
