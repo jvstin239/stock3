@@ -155,7 +155,7 @@ for wert in wkns:
             except:
                 print("Element hat kein Attribut text bei " + wert + " in peergroup Position " + str(i))
                 driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
-                continue
+                break
             # objekt = Aktie(soup.findAll("th")[i].text.strip(), wkn, isin, branche, sektor)
 
             driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
@@ -163,11 +163,12 @@ for wert in wkns:
 
             # Schleife über die Reihen in der Übersicht
             stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
-            # print("Stock 3 score " + wkn + ": I" + str(stock3_score) + "I")
+            print("Stock 3 score " + wkn + ": " + str(stock3_score))
             if stock3_score == "-":
+                # daten = []
                 break
             else:
-                daten.append(soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", ""))
+                daten.append(stock3_score)
 
             try:
                 for row in soup.findAll("tr")[2:]:
@@ -199,7 +200,7 @@ columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", 
 
 df = pandas.DataFrame(liste, columns = columns)
 # df['Zinsdeckungsgrad'] = df['Zinsdeckungsgrad'].apply(replace_non_numeric)
-# folder = os.path.dirname(__file__)
+folder = os.path.dirname(__file__)
 filename = "stock3_" + datetime.datetime.strftime(datetime.datetime.now(), "%d.%m.%y_%H%M") + ".csv"
-# df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
-df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
+df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
+# df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
