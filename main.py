@@ -73,7 +73,7 @@ driver.find_elements(By.CLASS_NAME, "widget__dropzone-button")[2].click()
 
 time.sleep(2)
 
-driver.find_element(By.XPATH, '/html/body/div[7]/div[3]/div[1]/div[3]/div[2]/div[2]/div[2]/div[32]/div').click()
+driver.find_element(By.XPATH, '//*[id="grid"]/div[3]/div[1]/div[3]/div[2]/div[2]/div[2]/div[33]/div/div[2]/div[1]').click()
 
 time.sleep(1)
 
@@ -200,7 +200,7 @@ columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", 
 
 df = pandas.DataFrame(liste, columns = columns)
 # df['Zinsdeckungsgrad'] = df['Zinsdeckungsgrad'].apply(replace_non_numeric)
-# folder = os.path.dirname(__file__)
+folder = os.path.dirname(__file__)
 filename = "stock3_" + datetime.datetime.strftime(datetime.datetime.now(), "%d.%m.%y_%H%M") + ".csv"
-# df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
-df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
+df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
+# df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
