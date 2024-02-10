@@ -73,7 +73,7 @@ driver.find_elements(By.CLASS_NAME, "widget__dropzone-button")[2].click()
 
 time.sleep(2)
 
-driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[2]/div[2]/div[2]/div[34]/div/div[2]/div[1]').click()
+driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[2]/div[2]/div[2]/div[33]/div/div[2]/div[1]').click()
 
 time.sleep(1)
 
