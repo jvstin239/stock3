@@ -73,7 +73,7 @@ driver.find_elements(By.CLASS_NAME, "widget__dropzone-button")[2].click()
 
 time.sleep(2)
 
-driver.find_element(By.XPATH, '//*[id="grid"]/div[3]/div[1]/div[3]/div[2]/div[2]/div[2]/div[33]/div/div[2]/div[1]').click()
+driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[2]/div[2]/div[2]/div[33]/div/div[2]/div[1]').click()
 
 time.sleep(1)
 
@@ -158,8 +158,16 @@ for wert in wkns:
                 break
             # objekt = Aktie(soup.findAll("th")[i].text.strip(), wkn, isin, branche, sektor)
 
-            driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
+            # hover_element = driver.find_element((By.CLASS_NAME, 'cssgrid'))
+            # hover = ActionChains(driver).move_to_element(hover_element)
+            # hover.perform()
+            # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
+            # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/div[2]/i[6]').click()
+            close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/div[2]/i[6]')))
+            close_icon.click()
             # print(soup.findAll("tr")[1].select_one("td").text)
+            # close_icon = driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]')
+            # driver.execute_script("arguments[0].click();", close_icon)
 
             # Schleife über die Reihen in der Übersicht
             stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
@@ -200,7 +208,7 @@ columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", 
 
 df = pandas.DataFrame(liste, columns = columns)
 # df['Zinsdeckungsgrad'] = df['Zinsdeckungsgrad'].apply(replace_non_numeric)
-# folder = os.path.dirname(__file__)
+#folder = os.path.dirname(__file__)
 filename = "stock3_" + datetime.datetime.strftime(datetime.datetime.now(), "%d.%m.%y_%H%M") + ".csv"
-# df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
+#df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
 df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
