@@ -126,7 +126,6 @@ for wert in wkns:
             # print(soup.findAll("th"))
             daten = []
             driver.find_elements(By.CLASS_NAME, "button__label")[i+3].click()
-            # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3])).click()
             # button_label = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3]))
             # button_label.click()
             time.sleep(0.5)
@@ -202,9 +201,8 @@ for wert in wkns:
 
         time.sleep(0.25)
 
-    except Exception as error:
+    except:
         print("Problem beim Abruf! Abbruch bei " + wert)
-        print("error: ", error)
         break
 
 columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", "Land", "Anzahl_Aktien", "Marktkapitalisierung", "Stock3Score", "Momentum_&_Vola",
