@@ -159,8 +159,7 @@ for wert in wkns:
             except:
                 print("Element hat kein Attribut text bei " + wert + " in peergroup Position " + str(i))
                 # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
-                close_icon = WebDriverWait(driver, 10).until(
-                    EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/div[2]/i[6]')))
+                close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[4] / div[1] / div[1] / div[2] /div/i[6]')))
                 close_icon.click()
                 break
             # objekt = Aktie(soup.findAll("th")[i].text.strip(), wkn, isin, branche, sektor)
@@ -170,7 +169,9 @@ for wert in wkns:
             # hover.perform()
             # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
             # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/div[2]/i[6]').click()
-            close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/div[2]/i[6]')))
+            # close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/div[2]/i[6]')))
+            close_icon = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[4] / div[1] / div[1] / div[2] /div/i[6]')))
             close_icon.click()
             # print(soup.findAll("tr")[1].select_one("td").text)
             # close_icon = driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]')
