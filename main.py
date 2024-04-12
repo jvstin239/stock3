@@ -159,7 +159,7 @@ for wert in wkns:
             except:
                 print("Element hat kein Attribut text bei " + " in peergroup Position " + str(i))
                 # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
-                close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[4] / div[1] / div[1] / div[2] / div / i[6]')))
+                close_icon = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[4] / div[1] / div[1] / div[2] / div / i[6]')))
                 close_icon.click()
                 break
             # objekt = Aktie(soup.findAll("th")[i].text.strip(), wkn, isin, branche, sektor)
