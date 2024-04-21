@@ -209,10 +209,10 @@ for wert in wkns:
 
 columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", "Land", "Anzahl_Aktien", "Marktkapitalisierung", "Stock3Score", "Momentum_&_Vola",
                    "Kursperform_6_M", "Kursperform_1_J", "Delta_52_Wochen_Hoch", "Vola_1_J",
-                   "Bewertung", "KUV", "Free_Cash_Flow", "PEG_Ratio", "KGV_(2023)", "KGV_(2024)", "Kursziel", "Wachstum", "Umsatzwachstum_ueber_5_J", "EPS_Wachstum_ueber_5_J",
-                   "Umsatzwachstum_(2023)", "Umsatzwachstum_(2024)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(2023)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(2024)",
+                   "Bewertung", "KUV", "Free_Cash_Flow", "PEG_Ratio", "KGV_(Jahr)", "KGV_(Jahr_+1)", "Kursziel", "Wachstum", "Umsatzwachstum_ueber_5_J", "EPS_Wachstum_ueber_5_J",
+                   "Umsatzwachstum_(Jahr)", "Umsatzwachstum_(Jahr_+1)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(Jahr)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(Jahr_+1)",
                    "Qualitaet_und_Verschuldung", "Eigenkapitalrendite", "Eigenkapitalquote", "EBIT_Marge","Liquiditaet_dritten_Grades", "Liquiditaet_zweiten_Grades", "Verhaeltnis_aus_Schulden_zum_EK",
-                   "Verhaeltnis_aus_Schulden_und_Vermoegenswerten", "Zinsdeckungsgrad", "Dividende_&_Aktienrueckkaeufe", "Gesamtrendite", "Payout_Ratio", "Dividende_(2023)", "Dividende_(2024)"]
+                   "Verhaeltnis_aus_Schulden_und_Vermoegenswerten", "Zinsdeckungsgrad", "Dividende_&_Aktienrueckkaeufe", "Gesamtrendite", "Payout_Ratio", "Dividende_(Jahr)", "Dividende_(Jahr_+1)"]
 
 df = pandas.DataFrame(liste, columns = columns)
 # df['Zinsdeckungsgrad'] = df['Zinsdeckungsgrad'].apply(replace_non_numeric)
