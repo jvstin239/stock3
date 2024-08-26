@@ -126,7 +126,8 @@ for wert in wkns:
         # print(soup.findAll("th"))
         daten = []
         time.sleep(1)
-        driver.find_elements(By.CLASS_NAME, "button__label")[i+3].click()
+        # driver.find_elements(By.CLASS_NAME, "button__label")[i+3].click()
+        driver.find_elements(By.CSS_SELECTOR, '.button__label.dr')[i-1].click()
         # WebDriverWait(driver, 10).until(EC.((By.CLASS_NAME, "button__label")[i+3])).click()
         # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3])).click()
         # button_label = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3]))
