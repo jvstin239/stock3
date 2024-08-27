@@ -90,7 +90,7 @@ for wert in wkns:
     if wert == "":
         continue
 
-    #try:
+    try:
         search_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]')))
 
         search_button.click()
