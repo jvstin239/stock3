@@ -17,6 +17,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from Aktie import Aktie
 import pandas
 from Reader import Reader
+from webdriver_manager.chrome import ChromeDriverManager
 
 def cookies():
     try:
@@ -47,7 +48,7 @@ liste = []
 
 url = "https://account.stock3.com"
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 driver.get(url)
 
