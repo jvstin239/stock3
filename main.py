@@ -21,7 +21,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def cookies():
     try:
-        cookie_button = WebDriverWait(driver, 5).until(
+        cookie_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="CybotCookiebotDialogBodyButtonDecline"]')))
         cookie_button.click()
     except:
@@ -49,7 +49,6 @@ liste = []
 url = "https://account.stock3.com"
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-
 driver.get(url)
 
 cookies()
@@ -70,15 +69,17 @@ cookies()
 
 driver.maximize_window()
 
-driver.find_elements(By.CLASS_NAME, "widget__dropzone-button")[2].click()
-
-time.sleep(2)
-
-driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[1]/div[2]/div[2]/div[32]/div/div[2]/div[1]').click()
-
 time.sleep(1)
 
-driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[3]/div/div/div[2]/div[2]/div[2]/div').click()
+driver.get("https://terminal.stock3.com/#store/w")
+# driver.find_elements(By.CLASS_NAME, "widget__dropzone-button")[2].click()
+
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='toolbox-item__title' and text()='stock3 Score']"))).click()
+#driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[1]/div[2]/div[2]/div[32]/div/div[2]/div[1]').click()
+
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='button button--up' and text()='Widget hinzufügen']"))).click()
+
+#driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[3]/div/div/div[2]/div[2]/div[2]/div').click()
 
 time.sleep(2)
 
@@ -92,8 +93,11 @@ for wert in wkns:
         continue
 
     try:
-        search_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]')))
+        # search_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]')))
+        stock3_score_widget = driver.find_element(By.CSS_SELECTOR, 'div[data-w="score"]')
 
+        # Locate the search button within this widget
+        search_button = stock3_score_widget.find_element(By.CLASS_NAME, 'button--icon')
         search_button.click()
 
         time.sleep(1)
@@ -113,7 +117,7 @@ for wert in wkns:
         time.sleep(0.5)
 
         try:
-            peergroup_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div[1]/div[3]')))
+            peergroup_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='widget__col widget__col--left']/div[text()='Mit Peergroup vergleichen']")))
             peergroup_button.click()
         except:
             print("Peergroup Button konnte nicht geklickt werden bei: " + wert)
@@ -139,9 +143,9 @@ for wert in wkns:
             try:
                 wkn = new_soup.select(".accordion__parameter")[0].findAll("span")[0].text.strip()
                 if wkn in wkns_bereits_drin:
-                    # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
-                    close_icon = WebDriverWait(driver, 3).until(
-                        EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[4] / div[1] / div[1] / div[2] / div / i[6]')))
+                    driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
+                    close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+                        (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
                     close_icon.click()
                     break
                 wkns_bereits_drin.append(wkn)
@@ -163,22 +167,24 @@ for wert in wkns:
             except:
                 print("Element hat kein Attribut text bei " + " in peergroup Position " + str(i))
                 # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
-                close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[4] / div[1] / div[1] / div[2] / div / i[6]')))
+                close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
                 close_icon.click()
                 break
-            # objekt = Aktie(soup.findAll("th")[i].text.strip(), wkn, isin, branche, sektor)
 
-            # hover_element = driver.find_element((By.CLASS_NAME, 'cssgrid'))
-            # hover = ActionChains(driver).move_to_element(hover_element)
-            # hover.perform()
-            # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
-            # driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/div[2]/i[6]').click()
-            # close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/div[2]/i[6]')))
-            close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[4] / div[1] / div[1] / div[2] / div / i[6]')))
+            #widget_header = WebDriverWait(driver, 10).until(
+            #    EC.visibility_of_element_located((By.XPATH, "//div[@class='widget__head widget__cols mh']"))
+            #)
+
+            # driver.find_element(By.XPATH, '//*[@id="grid"]/div[7]/div[1]/div[1]/div[2]/div/i[6]').click()
+
+            close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+                (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
             close_icon.click()
-            # print(soup.findAll("tr")[1].select_one("td").text)
-            # close_icon = driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]')
-            # driver.execute_script("arguments[0].click();", close_icon)
+
+            # Now locate and click the close icon
+            #close_icon = WebDriverWait(driver, 10).until(
+            #    EC.presence_of_element_located((By.XPATH, "/html/body/div[7]/div[7]/div[1]/div[1]/div[2]/div/i[6]"))
+            #)
 
             # Schleife über die Reihen in der Übersicht
             stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
