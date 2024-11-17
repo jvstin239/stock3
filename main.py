@@ -92,146 +92,146 @@ for wert in wkns:
     if wert == "":
         continue
 
-    #try:
-    # search_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]')))
-    stock3_score_widget = driver.find_element(By.CSS_SELECTOR, 'div[data-w="score"]')
-
-    # Locate the search button within this widget
-    search_button = stock3_score_widget.find_element(By.CLASS_NAME, 'button--icon')
-    search_button.click()
-
-    time.sleep(1)
-
-    actions = ActionChains(driver)
-
-    actions.send_keys(wert)
-
-    actions.perform()
-
-    time.sleep(0.1)
-
-    actions.send_keys(Keys.ENTER)
-
-    actions.perform()
-
-    time.sleep(0.5)
-
     try:
-        peergroup_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='widget__col widget__col--left']/div[text()='Mit Peergroup vergleichen']")))
-        peergroup_button.click()
-    except:
-        print("Peergroup Button konnte nicht geklickt werden bei: " + wert)
-        continue
-    time.sleep(1)
-    html = driver.page_source
-    soup = BeautifulSoup(html, "html.parser")
-    table = WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located((By.CLASS_NAME, "tbl.ratingComparison"))
-    )
-    company_elements = table.find_elements(By.XPATH, ".//th//div[@class='button__label dr contextmenu']/span")
+        # search_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]')))
+        stock3_score_widget = driver.find_element(By.CSS_SELECTOR, 'div[data-w="score"]')
 
-    ## ab hier schleife über die Objekte in der Peergroup
-    #for element in company_elements:
-    for i in range(1, 6):
-        # print(soup.findAll("th"))
-        daten = []
+        # Locate the search button within this widget
+        search_button = stock3_score_widget.find_element(By.CLASS_NAME, 'button--icon')
+        search_button.click()
+
         time.sleep(1)
-        # driver.find_elements(By.CLASS_NAME, "button__label")[i+3].click()
-        # .dr wegemacht am ende
-        #element.click()
-        # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'button__label dr contextmenu')))[i].click()
 
-        driver.find_elements(By.CSS_SELECTOR, '.button__label.dr')[i-1].click()
-        # WebDriverWait(driver, 10).until(EC.((By.CLASS_NAME, "button__label")[i+3])).click()
-        # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3])).click()
-        # button_label = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3]))
-        # button_label.click()
+        actions = ActionChains(driver)
+
+        actions.send_keys(wert)
+
+        actions.perform()
+
+        time.sleep(0.1)
+
+        actions.send_keys(Keys.ENTER)
+
+        actions.perform()
+
         time.sleep(0.5)
-        new_html = driver.page_source
-        new_soup = BeautifulSoup(new_html, "html.parser")
-
 
         try:
-
-
-            wkn = new_soup.select(".accordion__parameter")[0].findAll("span")[0].text.strip()
-            if wkn in wkns_bereits_drin:
-                # driver.find_element(By.XPATH, '//*[@id="grid"]/div[7]/div[1]/div[1]/div[2]/i[6]').click()
-                close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
-                    (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
-                close_icon.click()
-                continue
-            wkns_bereits_drin.append(wkn)
-            daten.append(wkn)
-            daten.append(soup.findAll("th")[i].text.strip())
-            daten.append(new_soup.select(".accordion__parameter")[0].findAll("span")[1].text.strip())
-            daten.append(new_soup.select_one(".industry").text.strip())
-            daten.append(new_soup.select(".accordion__parameter")[6].select_one(".button").text.strip())
-            # sell Kurs
-            daten.append(new_soup.select(".box-item__price")[0].text.strip())
-            # buy Kurs
-            daten.append(new_soup.select(".box-item__price")[1].text.strip())
-            # Land
-            daten.append(new_soup.select_one(".country-items").text.strip())
-            # anzahl Aktien
-            daten.append(new_soup.select(".accordion__parameter-value")[8].text.strip())
-            # Marktkapitalisierung
-            daten.append(new_soup.select(".accordion__parameter-value")[9].text.strip())
-
-
+            peergroup_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='widget__col widget__col--left']/div[text()='Mit Peergroup vergleichen']")))
+            peergroup_button.click()
         except:
-            print("Element hat kein Attribut text bei " + " in peergroup Position " )
-            driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
-            close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
-            close_icon.click()
-            break
-
-        #widget_header = WebDriverWait(driver, 10).until(
-        #    EC.visibility_of_element_located((By.XPATH, "//div[@class='widget__head widget__cols mh']"))
-        #)
-
-        # driver.find_element(By.XPATH, '//*[@id="grid"]/div[7]/div[1]/div[1]/div[2]/div/i[6]').click()
-        close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
-            (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
-        close_icon.click()
-        time.sleep(0.2)
-        # Now locate and click the close icon
-        #close_icon = WebDriverWait(driver, 10).until(
-        #    EC.presence_of_element_located((By.XPATH, "/html/body/div[7]/div[7]/div[1]/div[1]/div[2]/div/i[6]"))
-        #)
-
-        # Schleife über die Reihen in der Übersicht
-        stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
-        # print("Stock 3 score " + wkn + ": " + str(stock3_score))
-        if stock3_score == "-":
-            # daten = []
-            break
-        else:
-            daten.append(stock3_score)
-
-        try:
-            for row in soup.findAll("tr")[2:]:
-                zahl = row.select("td")[i].text.strip().replace("\u202f%", "")
-                if zahl not in ["neg.", "access denied", "instrument n/a", "-"]:
-                    daten.append(zahl)
-                else:
-                    daten.append("")
-        except:
-            print("Fehler in Schleife über die einzelnen Reihen bei " + " in Position " + str(i))
+            print("Peergroup Button konnte nicht geklickt werden bei: " + wert)
             continue
+        time.sleep(1)
+        html = driver.page_source
+        soup = BeautifulSoup(html, "html.parser")
+        table = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "tbl.ratingComparison"))
+        )
+        company_elements = table.find_elements(By.XPATH, ".//th//div[@class='button__label dr contextmenu']/span")
 
-        liste.append(daten)
+        ## ab hier schleife über die Objekte in der Peergroup
+        #for element in company_elements:
+        for i in range(1, 6):
+            # print(soup.findAll("th"))
+            daten = []
+            time.sleep(1)
+            # driver.find_elements(By.CLASS_NAME, "button__label")[i+3].click()
+            # .dr wegemacht am ende
+            #element.click()
+            # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'button__label dr contextmenu')))[i].click()
 
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[6]/div[1]/div[2]/div[2]/div/div[2]'))).click()
+            driver.find_elements(By.CSS_SELECTOR, '.button__label.dr')[i-1].click()
+            # WebDriverWait(driver, 10).until(EC.((By.CLASS_NAME, "button__label")[i+3])).click()
+            # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3])).click()
+            # button_label = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3]))
+            # button_label.click()
+            time.sleep(0.5)
+            new_html = driver.page_source
+            new_soup = BeautifulSoup(new_html, "html.parser")
 
-    # WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div/div[2]'))).click()
 
-    time.sleep(0.25)
+            try:
 
-    #except Exception as error:
-    #    print("Problem beim Abruf! Abbruch bei " + str(wert))
-    #    print("error: ", error)
-    #    break
+
+                wkn = new_soup.select(".accordion__parameter")[0].findAll("span")[0].text.strip()
+                if wkn in wkns_bereits_drin:
+                    # driver.find_element(By.XPATH, '//*[@id="grid"]/div[7]/div[1]/div[1]/div[2]/i[6]').click()
+                    close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+                        (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
+                    close_icon.click()
+                    continue
+                wkns_bereits_drin.append(wkn)
+                daten.append(wkn)
+                daten.append(soup.findAll("th")[i].text.strip())
+                daten.append(new_soup.select(".accordion__parameter")[0].findAll("span")[1].text.strip())
+                daten.append(new_soup.select_one(".industry").text.strip())
+                daten.append(new_soup.select(".accordion__parameter")[6].select_one(".button").text.strip())
+                # sell Kurs
+                daten.append(new_soup.select(".box-item__price")[0].text.strip())
+                # buy Kurs
+                daten.append(new_soup.select(".box-item__price")[1].text.strip())
+                # Land
+                daten.append(new_soup.select_one(".country-items").text.strip())
+                # anzahl Aktien
+                daten.append(new_soup.select(".accordion__parameter-value")[8].text.strip())
+                # Marktkapitalisierung
+                daten.append(new_soup.select(".accordion__parameter-value")[9].text.strip())
+
+
+            except:
+                print("Element hat kein Attribut text bei " + " in peergroup Position " )
+                driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
+                close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
+                close_icon.click()
+                break
+
+            #widget_header = WebDriverWait(driver, 10).until(
+            #    EC.visibility_of_element_located((By.XPATH, "//div[@class='widget__head widget__cols mh']"))
+            #)
+
+            # driver.find_element(By.XPATH, '//*[@id="grid"]/div[7]/div[1]/div[1]/div[2]/div/i[6]').click()
+            close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+                (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
+            close_icon.click()
+            time.sleep(0.2)
+            # Now locate and click the close icon
+            #close_icon = WebDriverWait(driver, 10).until(
+            #    EC.presence_of_element_located((By.XPATH, "/html/body/div[7]/div[7]/div[1]/div[1]/div[2]/div/i[6]"))
+            #)
+
+            # Schleife über die Reihen in der Übersicht
+            stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
+            # print("Stock 3 score " + wkn + ": " + str(stock3_score))
+            if stock3_score == "-":
+                # daten = []
+                break
+            else:
+                daten.append(stock3_score)
+
+            try:
+                for row in soup.findAll("tr")[2:]:
+                    zahl = row.select("td")[i].text.strip().replace("\u202f%", "")
+                    if zahl not in ["neg.", "access denied", "instrument n/a", "-"]:
+                        daten.append(zahl)
+                    else:
+                        daten.append("")
+            except:
+                print("Fehler in Schleife über die einzelnen Reihen bei " + " in Position " + str(i))
+                continue
+
+            liste.append(daten)
+
+        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[6]/div[1]/div[2]/div[2]/div/div[2]'))).click()
+
+        # WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div/div[2]'))).click()
+
+        time.sleep(0.25)
+
+    except Exception as error:
+        print("Problem beim Abruf! Abbruch bei " + str(wert))
+        print("error: ", error)
+        break
 
 columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", "Land", "Anzahl_Aktien", "Marktkapitalisierung", "Stock3Score", "Momentum_&_Vola",
                    "Kursperform_6_M", "Kursperform_1_J", "Delta_52_Wochen_Hoch", "Vola_1_J",
