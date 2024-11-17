@@ -184,7 +184,7 @@ for wert in wkns:
                 driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
                 close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
                 close_icon.click()
-                break
+                continue
 
             #widget_header = WebDriverWait(driver, 10).until(
             #    EC.visibility_of_element_located((By.XPATH, "//div[@class='widget__head widget__cols mh']"))
