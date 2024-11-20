@@ -128,57 +128,55 @@ for wert in wkns:
         table = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "tbl.ratingComparison"))
         )
-        company_elements = table.find_elements(By.XPATH, ".//th//div[@class='button__label dr contextmenu']/span")
 
         ## ab hier schleife über die Objekte in der Peergroup
-        #for element in company_elements:
         for i in range(1, 6):
-            # print(soup.findAll("th"))
             daten = []
             time.sleep(1)
-            # driver.find_elements(By.CLASS_NAME, "button__label")[i+3].click()
-            # .dr wegemacht am ende
-            #element.click()
-            # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'button__label dr contextmenu')))[i].click()
-
             driver.find_elements(By.CSS_SELECTOR, '.button__label.dr')[i-1].click()
-            # WebDriverWait(driver, 10).until(EC.((By.CLASS_NAME, "button__label")[i+3])).click()
-            # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3])).click()
-            # button_label = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "button__label")[i+3]))
-            # button_label.click()
+
             time.sleep(0.5)
             new_html = driver.page_source
             new_soup = BeautifulSoup(new_html, "html.parser")
 
+            # print(new_soup)
+
 
             try:
 
-
-                wkn = new_soup.select(".accordion__parameter")[0].findAll("span")[0].text.strip()
+                wkn = new_soup.select(".accordion__parameter")[10].findAll("span")[0].text.strip()
+                widget = new_soup.find('div', {'data-w': 'instrument1'})
+                # wkn = soup.select_one(".accordion__parameter-value span").text
+                #print(wkn)
                 if wkn in wkns_bereits_drin:
-                    # driver.find_element(By.XPATH, '//*[@id="grid"]/div[7]/div[1]/div[1]/div[2]/i[6]').click()
                     close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
                         (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
                     close_icon.click()
                     continue
                 wkns_bereits_drin.append(wkn)
+                #time.sleep(100000)
+                #WKN
                 daten.append(wkn)
+                #Name
                 daten.append(soup.findAll("th")[i].text.strip())
-                daten.append(new_soup.select(".accordion__parameter")[0].findAll("span")[1].text.strip())
-                daten.append(new_soup.select_one(".industry").text.strip())
-                daten.append(new_soup.select(".accordion__parameter")[6].select_one(".button").text.strip())
+                #ISIN
+                daten.append(new_soup.select(".accordion__parameter")[10].findAll("span")[1].text.strip())
+                #Branche
+                daten.append(widget.select_one(".industry").text.strip())
+                #Sektor
+                sektor = widget.select(".accordion__parameter")[6].select_one(".button").text.strip()
+                daten.append(sektor)
+                #daten.append(new_soup.findAll("Sektor")[0].select_one(".button").text.strip())
                 # sell Kurs
-                daten.append(new_soup.select(".box-item__price")[0].text.strip())
+                daten.append(widget.select(".box-item__price")[0].text.strip())
                 # buy Kurs
-                daten.append(new_soup.select(".box-item__price")[1].text.strip())
+                daten.append(widget.select(".box-item__price")[1].text.strip())
                 # Land
-                daten.append(new_soup.select_one(".country-items").text.strip())
+                daten.append(widget.select_one(".country-items").text.strip())
                 # anzahl Aktien
-                daten.append(new_soup.select(".accordion__parameter-value")[8].text.strip())
+                daten.append(widget.select(".accordion__parameter-value")[8].text.strip())
                 # Marktkapitalisierung
-                daten.append(new_soup.select(".accordion__parameter-value")[9].text.strip())
-
-
+                daten.append(widget.select(".accordion__parameter-value")[9].text.strip())
             except:
                 print("Element hat kein Attribut text bei " + " in peergroup Position " )
                 driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
@@ -186,23 +184,15 @@ for wert in wkns:
                 close_icon.click()
                 continue
 
-            #widget_header = WebDriverWait(driver, 10).until(
-            #    EC.visibility_of_element_located((By.XPATH, "//div[@class='widget__head widget__cols mh']"))
-            #)
-
-            # driver.find_element(By.XPATH, '//*[@id="grid"]/div[7]/div[1]/div[1]/div[2]/div/i[6]').click()
             close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
                 (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
             close_icon.click()
             time.sleep(0.2)
-            # Now locate and click the close icon
-            #close_icon = WebDriverWait(driver, 10).until(
-            #    EC.presence_of_element_located((By.XPATH, "/html/body/div[7]/div[7]/div[1]/div[1]/div[2]/div/i[6]"))
-            #)
 
             # Schleife über die Reihen in der Übersicht
             stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
             # print("Stock 3 score " + wkn + ": " + str(stock3_score))
+
             if stock3_score == "-":
                 # daten = []
                 break
@@ -219,7 +209,6 @@ for wert in wkns:
             except:
                 print("Fehler in Schleife über die einzelnen Reihen bei " + " in Position " + str(i))
                 continue
-
             liste.append(daten)
 
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[6]/div[1]/div[2]/div[2]/div/div[2]'))).click()
@@ -242,7 +231,7 @@ columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", 
 
 df = pandas.DataFrame(liste, columns = columns)
 # df['Zinsdeckungsgrad'] = df['Zinsdeckungsgrad'].apply(replace_non_numeric)
-#folder = os.path.dirname(__file__)
+folder = os.path.dirname(__file__)
 filename = "stock3_" + datetime.datetime.strftime(datetime.datetime.now(), "%d.%m.%y_%H%M") + ".csv"
-#df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
-df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
+df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
+#df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
