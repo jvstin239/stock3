@@ -249,7 +249,7 @@ columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", 
 
 df = pandas.DataFrame(liste, columns = columns)
 # df['Zinsdeckungsgrad'] = df['Zinsdeckungsgrad'].apply(replace_non_numeric)
-folder = os.path.dirname(__file__)
+#folder = os.path.dirname(__file__)
 filename = "stock3_" + datetime.datetime.strftime(datetime.datetime.now(), "%d.%m.%y_%H%M") + ".csv"
-df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
-#df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
+#df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
+df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
