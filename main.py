@@ -149,6 +149,12 @@ for wert in wkns:
                 # wkn = soup.select_one(".accordion__parameter-value span").text
                 #print(wkn)
                 if wkn in wkns_bereits_drin:
+                    element_to_hover = driver.find_element(By.XPATH,
+                                                           '//*[@id="grid"]/div[7]')  # Replace with your locator
+
+                    # Perform the hover action
+                    actions = ActionChains(driver)
+                    actions.move_to_element(element_to_hover).perform()
                     close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
                         (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
                     close_icon.click()
@@ -179,11 +185,23 @@ for wert in wkns:
                 daten.append(widget.select(".accordion__parameter-value")[9].text.strip())
             except:
                 print("Element hat kein Attribut text bei " + " in peergroup Position " )
+                element_to_hover = driver.find_element(By.XPATH,
+                                                       '//*[@id="grid"]/div[7]')  # Replace with your locator
+
+                # Perform the hover action
+                actions = ActionChains(driver)
+                actions.move_to_element(element_to_hover).perform()
                 driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
                 close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
                 close_icon.click()
                 continue
 
+            element_to_hover = driver.find_element(By.XPATH,
+                                                   '//*[@id="grid"]/div[7]')  # Replace with your locator
+
+            # Perform the hover action
+            actions = ActionChains(driver)
+            actions.move_to_element(element_to_hover).perform()
             close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
                 (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
             close_icon.click()
