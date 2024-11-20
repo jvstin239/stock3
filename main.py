@@ -244,7 +244,7 @@ columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", 
                    "Kursperform_6_M", "Kursperform_1_J", "Delta_52_Wochen_Hoch", "Vola_1_J",
                    "Bewertung", "KUV", "Free_Cash_Flow", "PEG_Ratio", "KGV_(Jahr)", "KGV_(Jahr_+1)", "Kursziel", "Wachstum", "Umsatzwachstum_ueber_5_J", "EPS_Wachstum_ueber_5_J",
                    "Umsatzwachstum_(Jahr)", "Umsatzwachstum_(Jahr_+1)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(Jahr)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(Jahr_+1)",
-                   "Qualitaet_und_Verschuldung", "Eigenkapitalrendite", "Eigenkapitalquote", "EBIT_Marge","Liquiditaet_dritten_Grades", "Liquiditaet_zweiten_Grades", "Verhaeltnis_aus_Schulden_zum_EK",
+                   "Qualitaet_und_Verschuldung", "Eigenkapitalrendite", "EBIT_Marge", "Eigenkapitalquote", "Liquiditaet_dritten_Grades", "Liquiditaet_zweiten_Grades", "Verhaeltnis_aus_Schulden_zum_EK",
                    "Verhaeltnis_aus_Schulden_und_Vermoegenswerten", "Zinsdeckungsgrad", "Dividende_&_Aktienrueckkaeufe", "Gesamtrendite", "Payout_Ratio", "Dividende_(Jahr)", "Dividende_(Jahr_+1)"]
 
 df = pandas.DataFrame(liste, columns = columns)
