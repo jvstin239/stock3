@@ -238,7 +238,7 @@ for wert in wkns:
     except Exception as error:
         print("Problem beim Abruf! Abbruch bei " + str(wert))
         print("error: ", error)
-        break
+        continue
 
 columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", "Land", "Anzahl_Aktien", "Marktkapitalisierung", "Stock3Score", "Momentum_&_Vola",
                    "Kursperform_6_M", "Kursperform_1_J", "Delta_52_Wochen_Hoch", "Vola_1_J",
