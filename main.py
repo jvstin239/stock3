@@ -129,10 +129,25 @@ for wert in wkns:
             EC.visibility_of_element_located((By.CLASS_NAME, "tbl.ratingComparison"))
         )
 
+        #try:
+        #    print(soup.select(".stock3Score__total")[1].text)
+        #    stock3_score = soup.select(".stock3Score__total")[1].text
+        #except Exception as error:
+        #    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+        #        (By.XPATH, '//*[@id="grid"]/div[6]/div[1]/div[2]/div[2]/div/div[2]'))).click()
+        #    print(str(wert) + " übersprungen")
+        #    print(error)
+        #    continue
+
         ## ab hier schleife über die Objekte in der Peergroup
         for i in range(1, 6):
             daten = []
             time.sleep(1)
+            if soup.select(".stock3Score__total")[i].text == "-":
+                # print("jaaaaaaaa")
+                #WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+                 #   (By.XPATH, '//*[@id="grid"]/div[6]/div[1]/div[2]/div[2]/div/div[2]'))).click()
+                continue
             driver.find_elements(By.CSS_SELECTOR, '.button__label.dr')[i-1].click()
 
             time.sleep(0.5)
@@ -142,59 +157,63 @@ for wert in wkns:
             # print(new_soup)
 
 
-            try:
+            #try:
 
-                wkn = new_soup.select(".accordion__parameter")[10].findAll("span")[0].text.strip()
-                widget = new_soup.find('div', {'data-w': 'instrument1'})
-                # wkn = soup.select_one(".accordion__parameter-value span").text
-                #print(wkn)
-                if wkn in wkns_bereits_drin:
-                    element_to_hover = driver.find_element(By.XPATH,
-                                                           '//*[@id="grid"]/div[7]')  # Replace with your locator
-
-                    # Perform the hover action
-                    actions = ActionChains(driver)
-                    actions.move_to_element(element_to_hover).perform()
-                    close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
-                        (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
-                    close_icon.click()
-                    continue
-                wkns_bereits_drin.append(wkn)
-                #time.sleep(100000)
-                #WKN
-                daten.append(wkn)
-                #Name
-                daten.append(soup.findAll("th")[i].text.strip())
-                #ISIN
-                daten.append(new_soup.select(".accordion__parameter")[10].findAll("span")[1].text.strip())
-                #Branche
-                daten.append(widget.select_one(".industry").text.strip())
-                #Sektor
-                sektor = widget.select(".accordion__parameter")[6].select_one(".button").text.strip()
-                daten.append(sektor)
-                #daten.append(new_soup.findAll("Sektor")[0].select_one(".button").text.strip())
-                # sell Kurs
-                daten.append(widget.select(".box-item__price")[0].text.strip())
-                # buy Kurs
-                daten.append(widget.select(".box-item__price")[1].text.strip())
-                # Land
-                daten.append(widget.select_one(".country-items").text.strip())
-                # anzahl Aktien
-                daten.append(widget.select(".accordion__parameter-value")[8].text.strip())
-                # Marktkapitalisierung
-                daten.append(widget.select(".accordion__parameter-value")[9].text.strip())
-            except:
-                print("Element hat kein Attribut text bei " + " in peergroup Position " )
+            wkn = new_soup.select(".accordion__parameter")[10].findAll("span")[0].text.strip()
+            widget = new_soup.find('div', {'data-w': 'instrument1'})
+            # wkn = soup.select_one(".accordion__parameter-value span").text
+            #print(wkn)
+            if wkn in wkns_bereits_drin:
                 element_to_hover = driver.find_element(By.XPATH,
                                                        '//*[@id="grid"]/div[7]')  # Replace with your locator
 
                 # Perform the hover action
                 actions = ActionChains(driver)
                 actions.move_to_element(element_to_hover).perform()
-                driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
-                close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
+                close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+                    (By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
                 close_icon.click()
                 continue
+            wkns_bereits_drin.append(wkn)
+            #time.sleep(100000)
+            #WKN
+            daten.append(wkn)
+            #Name
+            daten.append(soup.findAll("th")[i].text.strip())
+            #ISIN
+            daten.append(new_soup.select(".accordion__parameter")[10].findAll("span")[1].text.strip())
+            #Branche
+            daten.append(widget.select_one(".industry").text.strip())
+            #Sektor
+            sektor = widget.select(".accordion__parameter")[6].select_one(".button").text.strip()
+            daten.append(sektor)
+            #daten.append(new_soup.findAll("Sektor")[0].select_one(".button").text.strip())
+            # sell Kurs
+            daten.append(widget.select(".box-item__price")[0].text.strip())
+            # buy Kurs
+            daten.append(widget.select(".box-item__price")[1].text.strip())
+            # Land
+            daten.append(widget.select_one(".country-items").text.strip())
+            # anzahl Aktien
+            daten.append(widget.select(".accordion__parameter-value")[8].text.strip())
+            # Marktkapitalisierung
+            daten.append(widget.select(".accordion__parameter-value")[9].text.strip())
+
+
+            #except:
+            #    print("Element hat kein Attribut text bei " + " in peergroup Position " )
+            #    element_to_hover = driver.find_element(By.XPATH,
+            #                                           '//*[@id="grid"]/div[7]')  # Replace with your locator
+
+
+
+                # Perform the hover action
+                #actions = ActionChains(driver)
+                #actions.move_to_element(element_to_hover).perform()
+                #driver.find_element(By.XPATH, '//*[@id="grid"]/div[4]/div[1]/div[1]/div[2]/i[6]').click()
+                #close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '// *[ @ id = "grid"] / div[7] / div[1] / div[1] / div[2] / div / i[6]')))
+                #close_icon.click()
+                #continue
 
             element_to_hover = driver.find_element(By.XPATH,
                                                    '//*[@id="grid"]/div[7]')  # Replace with your locator
