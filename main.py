@@ -154,6 +154,9 @@ for wert in wkns:
             #time.sleep(5)
             driver.find_elements(By.CSS_SELECTOR, '.button__label.dr')[i-1].click()
 
+            time.sleep(0.25)
+            driver.find_elements(By.CLASS_NAME, 'switch__item')[4].click()
+
             time.sleep(0.5)
             new_html = driver.page_source
             new_soup = BeautifulSoup(new_html, "html.parser")
