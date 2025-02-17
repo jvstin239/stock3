@@ -77,7 +77,7 @@ driver.get("https://terminal.stock3.com/#store/w")
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='toolbox-item__title' and text()='stock3 Score']"))).click()
 #driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[1]/div[2]/div[2]/div[32]/div/div[2]/div[1]').click()
 
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='button button--up' and text()='Widget hinzufügen']"))).click()
+#WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='button button--up' and text()='Widget hinzufügen']"))).click()
 
 #driver.find_element(By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[3]/div[3]/div/div/div[2]/div[2]/div[2]/div').click()
 
