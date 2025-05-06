@@ -246,6 +246,7 @@ for wert in wkns:
             print("Fehler in Schleife über die einzelnen Reihen bei " + " in Position " + str(i))
             continue
         liste.append(daten)
+        #print(liste)
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[2]/div[1]/div[2]/div[1]/div/simple-button[2]'))).click()
 
@@ -258,16 +259,56 @@ for wert in wkns:
     #    print("error: ", error)
     #    break
 
-columns = ["WKN", "Name", "ISIN", "Branche", "Sektor", "Sell-Kurs", "Buy-Kurs", "Land", "Anzahl_Aktien", "Marktkapitalisierung", "Stock3Score", "Momentum_&_Vola",
-                   "Kursperform_6_M", "Kursperform_1_J", "Delta_52_Wochen_Hoch", "Vola_1_J",
-                   "Bewertung", "KUV", "Free_Cash_Flow", "PEG_Ratio", "KGV_(Jahr)", "KGV_(Jahr_+1)", "Kursziel", "Wachstum", "Umsatzwachstum_ueber_5_J", "EPS_Wachstum_ueber_5_J",
-                   "Umsatzwachstum_(Jahr)", "Umsatzwachstum_(Jahr_+1)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(Jahr)", "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(Jahr_+1)",
-                   "Qualitaet_und_Verschuldung", "Eigenkapitalrendite", "EBIT_Marge", "Eigenkapitalquote", "Liquiditaet_dritten_Grades", "Liquiditaet_zweiten_Grades", "Verhaeltnis_aus_Schulden_zum_EK",
-                   "Verhaeltnis_aus_Schulden_und_Vermoegenswerten", "Zinsdeckungsgrad", "Dividende_&_Aktienrueckkaeufe", "Gesamtrendite", "Payout_Ratio", "Dividende_(Jahr)", "Dividende_(Jahr_+1)"]
+columns = ["WKN",
+            "Name",
+            "ISIN",
+            "Branche",
+            "Sektor",
+            "Sell-Kurs",
+            "Buy-Kurs",
+            "Land",
+            "Anzahl_Aktien",
+            "Marktkapitalisierung",
+            "Stock3Score",
+            "Momentum_&_Vola",
+            "Vola_1_J",
+            "Delta_52_Wochen_Hoch",
+            "Kursperform_6_M",
+            "Kursperform_1_J",
+            "Bewertung",
+            "Kursziel",
+            "KGV_(Jahr)",
+            "KGV_(Jahr_+1)",
+            "Free_Cash_Flow",
+            "KUV",
+            "PEG_Ratio",
+            "Wachstum",
+            "Umsatzwachstum_(Jahr)",
+            "Umsatzwachstum_(Jahr_+1)",
+            "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(Jahr)",
+            "Wachstum_des_verwaesserten_Gewinns_je_Aktie_(Jahr_+1)",
+            "Umsatzwachstum_ueber_5_J",
+            "EPS_Wachstum_ueber_5_J",
+            "Qualitaet_und_Verschuldung",
+            "Eigenkapitalrendite",
+            "Eigenkapitalquote",
+            "EBIT_Marge",
+            "Liquiditaet_zweiten_Grades",
+            "Liquiditaet_dritten_Grades",
+            "Verhaeltnis_aus_Schulden_und_Vermoegenswerten",
+            "Verhaeltnis_aus_Schulden_zum_EK",
+            "Zinsdeckungsgrad",
+            "Dividende",
+            "Payout_Ratio",
+            "Dividende_(Jahr)",
+            "Dividende_(Jahr_+1)",
+            "Dividende_(Jahr_+2)",
+            "Dividende_(Jahr_+3)",
+            "fuenfjaehrige_Wachstumsrate_Dividende_je_Aktie"]
 
 df = pandas.DataFrame(liste, columns = columns)
 # df['Zinsdeckungsgrad'] = df['Zinsdeckungsgrad'].apply(replace_non_numeric)
-#folder = os.path.dirname(__file__)
+folder = os.path.dirname(__file__)
 filename = "stock3_" + datetime.datetime.strftime(datetime.datetime.now(), "%d.%m.%y_%H%M") + ".csv"
-#df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
-df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
+df.to_csv(os.path.join(folder, filename), sep=";", index = False, encoding = "utf-8")
+#df.to_csv("//Master/F/User/Microsoft Excel/Privat/Börse/Stock3_Bewertungen/" + filename, sep=";", index = False, encoding = "utf-8")
