@@ -121,6 +121,14 @@ for wert in wkns:
 
         time.sleep(0.5)
 
+        first_html = driver.page_source
+        first_soup = BeautifulSoup(first_html, "html.parser")
+
+        stock3_check = first_soup.select_one(".stock3Score__total").text.strip()
+        if stock3_check == "-":
+            continue
+
+
         try:
             peergroup_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[2]/div[1]/div[2]/div[1]/div[1]/simple-button[2]')))
             peergroup_button.click()
@@ -135,7 +143,7 @@ for wert in wkns:
         for i in range(0, 5): stock3_scores_check.append(soup.select(".stock3Score__total")[i].text)
 
         if "-" in stock3_scores_check:
-            # print("jaaaaaaaa")
+            print("jaaaaaaaa")
             WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[2]/div[1]/div[2]/div[1]/div/simple-button[2]'))).click()
             continue
