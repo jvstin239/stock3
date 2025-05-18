@@ -161,7 +161,7 @@ for wert in wkns:
             #time.sleep(5)
             driver.find_elements(By.CSS_SELECTOR, '.button__label.dr')[i-1].click()
             time.sleep(0.25)
-            #driver.find_element(By.CLASS_NAME, 'switch__item').click()
+            driver.find_elements(By.CLASS_NAME, 'switch__item')[2].click()
 
             time.sleep(0.5)
             WebDriverWait(driver, 10).until(
