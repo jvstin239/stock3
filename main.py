@@ -137,6 +137,9 @@ for wert in wkns:
             print(error)
             continue
         time.sleep(1)
+        WebDriverWait(driver, 10).until(
+        lambda d: d.execute_script("return document.readyState") == "complete"
+        )
         html = driver.page_source
         soup = BeautifulSoup(html, "html.parser")
         stock3_scores_check=[]
@@ -161,6 +164,9 @@ for wert in wkns:
             #driver.find_element(By.CLASS_NAME, 'switch__item').click()
 
             time.sleep(0.5)
+            WebDriverWait(driver, 10).until(
+                lambda d: d.execute_script("return document.readyState") == "complete"
+            )
             new_html = driver.page_source
             new_soup = BeautifulSoup(new_html, "html.parser")
 
