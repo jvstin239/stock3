@@ -130,7 +130,7 @@ for wert in wkns:
 
 
         try:
-            peergroup_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[2]/div[1]/div[2]/div[1]/div[1]/simple-button[2]')))
+            peergroup_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div/div[1]/div[2]/div[1]/div[1]/simple-button[2]')))
             peergroup_button.click()
         except Exception as error:
             print("Peergroup Button konnte nicht geklickt werden bei: " + wert)
