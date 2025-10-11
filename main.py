@@ -179,13 +179,13 @@ for wert in wkns:
             # widget = new_soup.find('div', {'data-w': 'instrument1'})
             if wkn in wkns_bereits_drin:
                 element_to_hover = driver.find_element(By.XPATH,
-                                                       '//*[@id="grid"]/div[3]/div[1]/div[1]')
+                                                       '//*[@id="grid"]/div[2]/div[1]/div[1]')
 
                 # Perform the hover action
                 actions = ActionChains(driver)
                 actions.move_to_element(element_to_hover).perform()
                 close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
-                    (By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[1]/div[2]/div/i[6]')))
+                    (By.XPATH, '//*[@id="grid"]/div[2]/div[1]/div[1]/div[2]/div/i[6]')))
                 close_icon.click()
                 continue
             wkns_bereits_drin.append(wkn)
@@ -229,13 +229,13 @@ for wert in wkns:
                 #continue
 
             element_to_hover = driver.find_element(By.XPATH,
-                                                   '//*[@id="grid"]/div[3]/div[1]/div[1]')  # Replace with your locator
+                                                   '//*[@id="grid"]/div[2]/div[1]/div[1]')  # Replace with your locator
 
             # Perform the hover action
             actions = ActionChains(driver)
             actions.move_to_element(element_to_hover).perform()
             close_icon = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
-                (By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[1]/div[2]/div/i[6]')))
+                (By.XPATH, '//*[@id="grid"]/div[2]/div[1]/div[1]/div[2]/div/i[6]')))
             close_icon.click()
             time.sleep(0.2)
 
@@ -262,7 +262,7 @@ for wert in wkns:
             liste.append(daten)
             #print(liste)
 
-        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[2]/div[1]/div[2]/div[1]/div/simple-button[2]'))).click()
+        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[1]/div[1]/div[2]/div[1]/div/simple-button[2]'))).click()
 
         # WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[3]/div[1]/div[2]/div[2]/div/div[2]'))).click()
 
