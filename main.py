@@ -147,8 +147,8 @@ for wert in wkns:
 
         if "-" in stock3_scores_check:
             print("WKN hat kein Score - " + str(wert))
-            WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[2]/div[1]/div[2]/div[1]/div/simple-button[2]'))).click()
+            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="grid"]/div[1]/div[1]/div[2]/div[1]/div/simple-button[2]'))).click()
+
             continue
         table = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "tbl.ratingComparison"))
@@ -175,7 +175,7 @@ for wert in wkns:
 
             #try:
 
-            wkn = new_soup.select(".accordion__parameter-value")[0].findAll("span")[0].text.strip()
+            wkn = new_soup.select(".accordion__parameter-value")[0].find_all("span")[0].text.strip()
             # widget = new_soup.find('div', {'data-w': 'instrument1'})
             if wkn in wkns_bereits_drin:
                 element_to_hover = driver.find_element(By.XPATH,
@@ -193,9 +193,9 @@ for wert in wkns:
             #WKN
             daten.append(wkn)
             #Name
-            daten.append(soup.findAll("th")[i].text.strip())
+            daten.append(soup.find_all("th")[i].text.strip())
             #ISIN
-            daten.append(new_soup.select(".accordion__parameter-value")[0].findAll("span")[1].text.strip())
+            daten.append(new_soup.select(".accordion__parameter-value")[0].find_all("span")[1].text.strip())
             #Branche
             daten.append(new_soup.select_one(".industry").text.strip())
             #Sektor
@@ -240,7 +240,7 @@ for wert in wkns:
             time.sleep(0.2)
 
             # Schleife über die Reihen in der Übersicht
-            stock3_score = soup.findAll("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
+            stock3_score = soup.find_all("tr")[1].select("td")[i].select_one(".stock3Score__total").text.strip().replace("\u202f%", "")
             # print("Stock 3 score " + wkn + ": " + str(stock3_score))
 
             if stock3_score == "-":
@@ -250,7 +250,7 @@ for wert in wkns:
                 daten.append(stock3_score)
 
             try:
-                for row in soup.findAll("tr")[2:]:
+                for row in soup.find_all("tr")[2:]:
                     zahl = row.select("td")[i].text.strip().replace("\u202f%", "")
                     if zahl not in ["neg.", "access denied", "instrument n/a", "-"]:
                         daten.append(zahl)
